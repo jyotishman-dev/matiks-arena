@@ -3,10 +3,27 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "generate": "bunx prisma generate"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
+
+  "exports":{
+    "./client":"./index.ts"
+  },
+  
+
+
+
+
   "peerDependencies": {
     "typescript": "^7"
+  },
+  "dependencies": {
+    "@prisma/client": "6",
+    "dotenv": "^18.0.5",
+    "prisma": "6"
   }
 }
