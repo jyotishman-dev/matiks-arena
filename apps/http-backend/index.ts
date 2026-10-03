@@ -1,7 +1,9 @@
-import app from "./src/app"
+import { configDotenv } from "dotenv";
+configDotenv();
 
+import app from "./src/app";
 
-const PORT  = 4000 
-app.listen(PORT , ()=>{
-    console.log(`Http-Backend is listening on PORT ${PORT}`)
-})
+const PORT = 4000;
+app.listen(PORT, () => {
+  console.log(`Http-Backend is listening on PORT ${PORT}`);
+});

@@ -2,8 +2,9 @@ import type { Request, Response } from "express";
 import prisma from "@repo/db/client"
 import { loginSchema, registerSchema } from "@repo/common/common"
 import bcrypt from "bcryptjs";
-import { sign } from "jsonwebtoken";
+
 import { config } from "../config";
+import jwt from "jsonwebtoken";
 
 
 
@@ -87,7 +88,7 @@ export const loginController = async (req: Request, res: Response) => {
         });
     }
 
-    const token = sign({userId : user.id}, config.JWT_SECRET)
+    const token = jwt.sign({userId : user.id}, config.JWT_SECRET)
 
     return res.status(200).json({
         message: "Login successful",

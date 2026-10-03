@@ -1,11 +1,14 @@
 import { WebSocketServer, WebSocket } from "ws";
 import  prisma  from "@repo/db/client";
-import { verify, type JwtPayload } from "jsonwebtoken";
+import {  type JwtPayload } from "jsonwebtoken";
 import type { Game, Question, User } from "./utils/types";
 import { generateQuestions } from "./utils/question_generator";
+import jwt from "jsonwebtoken"
+import { configDotenv } from "dotenv";
+configDotenv();
 
 const wss = new WebSocketServer({ port: 8080 });
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
 const onlineUsers: Map<string, User> = new Map();
 const games: Map<string, Game> = new Map();
@@ -30,7 +33,7 @@ wss.on("connection", async (ws: ExtendedWs, req) => {
   let decoded;
 
   try {
-    decoded = verify(token, JWT_SECRET) as JwtPayload;
+    decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
   } catch (e) {
     ws.close();
     return;
